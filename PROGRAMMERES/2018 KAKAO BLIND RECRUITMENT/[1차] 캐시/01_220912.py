@@ -8,7 +8,7 @@ def solution(cacheSize, cities):
             t += 1
             cache.remove(s)
             cache.append(s)
-            
+
         else:
             t += 5
             cache.append(s)
