@@ -9,7 +9,7 @@ def compare(a, b):
 
 def solution(numbers):
     answer = ""
-    arr = sorted(numbers, key=cmp_to_key(compare))
+    arr = sorted(numbers, key = cmp_to_key(compare))
 
     if arr[0] == 0:
         return "0"
