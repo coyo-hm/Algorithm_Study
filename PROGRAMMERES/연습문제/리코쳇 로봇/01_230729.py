@@ -2,29 +2,27 @@ from collections import deque
 
 dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
-
+INF = int(1e9)
 
 def bfs(board, sx, sy):
     rn = len(board)
     cn = len(board[0])
-    q = deque([(sx, sy, 0, -1)])
+    count = [[INF] * cn for _ in range(rn)]
+    count[sx][sy] = 0
+    q = deque([(sx, sy, 0)])
     while q:
-        x, y, s, pd = q.popleft()
-        for d in range(0, 4):
-            px, py = x, y
-            if (0 == pd and d == 1) or (1 == pd and d == 0) or (2 == pd and d == 3) or (3 == pd and d == 2):
-                continue
-            for r in range(1, max(cn, rn)):
-                nx = dx[d] * r + x
-                ny = dy[d] * r + y
-                if nx < 0 or nx >= rn or ny < 0 or ny >= cn or board[nx][ny] == "D":
-                    if board[px][py] == "G":
-                        return s
-                    elif (px == x and py != y) or (px != x and py == y):
-                        q.append((px, py, s + 1, d))
-                    break
-                else:
-                    px, py = nx, ny
+        x, y, s = q.popleft()
+        for d in range(4):
+            nx = x
+            ny = y
+            while 0 <= nx + dx[d] < rn and 0 <= ny + dy[d] < cn and board[nx + dx[d]][ny + dy[d]] != "D":
+                nx += dx[d]
+                ny += dy[d]
+            if 0 <= nx < rn and 0 <= ny < cn and s + 1 < count[nx][ny]:
+                count[nx][ny] = s + 1
+                if board[nx][ny] == "G":
+                    return s + 1
+                q.append((nx, ny, s + 1))
     return -1
 
 
@@ -39,5 +37,3 @@ def solution(board):
                 return bfs(board, r, c)
 
     return -1
-
-solution([".D.R", "....", ".G..", "...D"]);
