@@ -1,5 +1,4 @@
 def solution(targets):
-    targets.sort()
     m = [0]
 
     for s, e in sorted(targets):
