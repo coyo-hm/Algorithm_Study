@@ -1,31 +1,18 @@
-def score(i, n, s, info, scores):
-    print(i, n, s, info, scores)
-    if n == 0 or i == 0:
-        a, b = 0, 0
-        for i in range(11):
-            if info[i] < scores[i]:
-                b += 10 - i
-            else:
-                a += 10 - i
-        if a > b:
-            return [scores, -1]
-        else:
-            return [scores, b - a]
-
-    if info[11 - i] >= n:
-        return score(i - 1, n, s, info, scores)
-    else:
-        a = score(i - 1, n, s, info, scores)
-        scores[11 - i] = info[11 - i] + 1
-        b = score(i - 1, n - info[11 - i] - 1, s + i, info, scores)
-        return a if a[1] >= b[1] else b
-
+from itertools import product
 
 def solution(n, info):
-    if info[0] == n:
-        return [-1]
-    answer = [0] * 11
-    ans = score(11, n, 0, info, answer)
-    print(ans)
-
+    info.reverse()
+    m = 0
+    answer = [-1]
+    for case in product([True, False], repeat = 11):
+        cnt = sum([info[i] + 1 for i in range(11) if case[i] == True])
+        if cnt <= n:
+            apeach = sum(i for i in range(11) if case[i] == False and info[i] != 0)
+            ryan = sum(i for i in range(11) if case[i] == True)
+            s = ryan - apeach
+            if s > m:
+                m = s
+                answer = [info[i] + 1 if case[i] == True else 0 for i in range(11)]
+                answer[0] = n - cnt
+    answer.reverse()
     return answer
