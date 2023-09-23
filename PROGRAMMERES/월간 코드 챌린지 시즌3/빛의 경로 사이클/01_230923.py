@@ -1,24 +1,45 @@
+import sys
+
+sys.setrecursionlimit(500000)
+
+DIR = {0: (-1, 0), 1: (0, 1), 2: (1, 0), 3: (0, -1)}
+answer = []
+
+
+def calcMove(x, y, n, m):
+    return (x % n, y % m)
+
+
+def calcDir(cur, d):
+    if cur == "S":
+        return d
+    elif cur == "R":
+        return (d + 1) % 4
+    else:
+        return (d - 1) % 4
+
+
+def search(r, c, d, er, ec, ed, visited, grid, cnt, n, m):
+    visited[(r, c, d)] = True
+    cnt += 1
+    dr, dc = DIR[d]
+    nr, nc = calcMove(r + dr, c + dc, n, m)
+    nd = calcDir(grid[nr][nc], d)
+
+    if (nr, nc, nd) == (er, ec, ed):
+        answer.append(cnt)
+    else:
+        search(nr, nc, nd, er, ec, ed, visited, grid, cnt, n, m)
+        return
+
+
 def solution(grid):
-    R, C = len(grid), len(grid[0])
-    dxy = [(-1, 0), (0, 1), (1, 0), (0, -1)]  # 상우하좌
-    grf = [[[0,0,0,0] for _ in range(C)] for _ in range(R)]  # 상우하좌
-
-
-    def solve(x, y, d):
-        res = 0
-        while not grf[x][y][d]:
-            grf[x][y][d] = 1
-            x, y = (x+dxy[d][0]) % R, (y+dxy[d][1]) % C
-            if grid[x][y] == 'L': d = (d+1) % 4
-            elif grid[x][y] == 'R': d = (d-1) % 4
-            res += 1
-        return res
-
-
-    ans = []
-    for i in range(R):
-        for j in range(C):
-            for k in range(4):
-                if grf[i][j][k] == 0:
-                    ans.append(solve(i, j, k))
-    return sorted(ans)
+    n, m = len(grid), len(grid[0])
+    visited = {}
+    for r in range(n):
+        for c in range(m):
+            for d in range(4):
+                if (r, c, d) not in visited:
+                    search(r, c, d, r, c, d, visited, grid, 0, n, m)
+    answer.sort()
+    return answer
