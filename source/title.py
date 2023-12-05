@@ -10,6 +10,6 @@ for t in title:
     elif parsed_title[-1] != "_":
         parsed_title += "_"
 parsed_title += "/01_23"
-parsed_title += str(today.month)
-parsed_title += str(today.day)
+parsed_title += str(today.month).zfill(2)
+parsed_title += str(today.day).zfill(2)
 print(parsed_title)
