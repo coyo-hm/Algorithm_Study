@@ -4,7 +4,7 @@ title = input()
 parsed_title = ""
 today = dt.datetime.now()
 for t in title:
-    char_reg = re.compile('[\d\w]')
+    char_reg = re.compile('[\d\w!?]')
     if char_reg.match(t):
         parsed_title += t
     elif parsed_title[-1] != "_":
