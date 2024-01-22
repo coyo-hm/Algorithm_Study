@@ -1,5 +1,6 @@
 import sys
 from collections import deque
+
 N = 100001
 
 input = sys.stdin.readline
@@ -9,7 +10,6 @@ q.append(n)
 road = [int(1e9)] * N
 visited = [True] * N
 road[n] = 0
-
 
 while q:
     p = q.popleft()
