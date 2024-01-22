@@ -1,4 +1,7 @@
+# https://www.acmicpc.net/problem/13305
+
 import sys
+
 input = sys.stdin.readline
 N = int(input())
 road = list(map(int, input().split()))
