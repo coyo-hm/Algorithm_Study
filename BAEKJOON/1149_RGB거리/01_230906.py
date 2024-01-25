@@ -1,4 +1,7 @@
+# https://www.acmicpc.net/problem/1149
+
 import sys
+
 input = sys.stdin.readline
 n = int(input())
 home = [list(map(int, input().split())) for _ in range(n)]
