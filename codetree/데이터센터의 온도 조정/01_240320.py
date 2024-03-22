@@ -4,14 +4,14 @@ import sys
 MAX_T = 1000000001
 
 input = sys.stdin.readline
-N, X, Y, Z = map(int, input().split())
+n, c, g, h = map(int, input().split())
 A = []
 B = []
 
-for _ in range(N):
-    Ai, Bi = map(int, input().split())
-    A.append(Ai)
-    B.append(Bi)
+for _ in range(n):
+    ta, tb = map(int, input().split())
+    A.append(ta)
+    B.append(tb)
 
 A.sort()
 B.sort()
@@ -20,15 +20,15 @@ B.append(MAX_T)
 
 i = 0
 j = 0
-current_work = N * X
-answer = N * X
+current_work = n * c
+answer = n * c
 
-while i < N or j < N:
+while i < n or j < n:
     if A[i] <= B[j]:
-        current_work += Y - X
+        current_work += g - c
         i += 1
     else:
-        current_work += Z - Y
+        current_work += h - g
         j += 1
     if current_work > answer:
         answer = current_work
