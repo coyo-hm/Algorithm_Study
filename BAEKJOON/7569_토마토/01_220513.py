@@ -1,3 +1,5 @@
+# https://www.acmicpc.net/problem/7569
+
 import collections
 from functools import reduce
 import sys
