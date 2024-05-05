@@ -34,10 +34,19 @@ while True:
         if len(set(col[i])) == 1:
             winner.append(col[i][0])
 
-    if len(set(winner)) == 1 and ((cnt_o == cnt_x and winner[0] == "O") or (cnt_o + 1 == cnt_x and winner[0] == "X")):
-        print("valid")
+    cnt_w = len(set(winner))
+
+    if cnt_w > 1:
+        print("invalid")
         continue
-    if len(winner) == 0 and cnt_dot == 0:
-        print("valid")
+    if cnt_dot == 0 and len(winner) > 0 and winner[0] == "O":
+        print("invalid")
         continue
-    print("invalid")
+    if cnt_w == 1 and cnt_o == cnt_x and winner[0] == "X":
+        print("invalid")
+        continue
+    if cnt_w == 1 and cnt_o + 1 == cnt_x and winner[0] == "O":
+        print("invalid")
+        continue
+
+    print("valid")
