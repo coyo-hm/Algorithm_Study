@@ -1,8 +1,13 @@
+# https://www.acmicpc.net/problem/1316
+
 import sys
+
 input = sys.stdin.readline
 n = int(input())
 words = [input().rstrip() for _ in range(n)]
 ans = 0
+
+
 def check(word):
     prev = word[0]
     dic = []
@@ -14,8 +19,9 @@ def check(word):
             prev = word[i]
     return True
 
+
 for word in words:
-    if(check(word)):
+    if (check(word)):
         ans += 1
 
 print(ans)
